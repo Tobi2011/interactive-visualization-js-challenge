@@ -22,11 +22,10 @@ function buildMetadata(sample) {
     };
   });
     // Hint: Inside the loop, you will need to use d3 to append new
-    // tags for each key-value in the metadata.
-
-    // BONUS: Build the Gauge Chart
-    // buildGauge(data.WFREQ);
+    // tags for each key-value in the metadata. 
+    
 }
+
 
 function buildCharts(sample) {
   console.log("building charts");
@@ -77,7 +76,8 @@ function buildCharts(sample) {
     var pieData = [pieTrace];
 
     var pieLayout = {
-      autosize: true
+      autosize: true,
+
     };
 
     Plotly.newPlot('pie',pieData,pieLayout)
@@ -104,6 +104,10 @@ function buildCharts(sample) {
     };
 
     Plotly.newPlot('bubble', bubbleData, bubbleLayout);
+    Plotly.relayout('bubble', {
+      'xaxis.autorange': true,
+      'yaxis.autorange': true
+  });
 
     
   });
@@ -137,6 +141,7 @@ function init() {
     const firstSample = sampleNames[0];
     buildCharts(firstSample);
     buildMetadata(firstSample);
+    buildGauge(firstSample)
   });
 }
 
@@ -144,6 +149,7 @@ function optionChanged(newSample) {
   // Fetch new data each time a new sample is selected
   buildCharts(newSample);
   buildMetadata(newSample);
+  buildGauge(newSample)
 }
 
 // Initialize the dashboard
